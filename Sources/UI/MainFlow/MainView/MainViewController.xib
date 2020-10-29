@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController" customModule="Pokemon_Not_Go" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="i5M-Pr-FkT" customClass="MainView" customModule="Pokemon_Not_Go" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uVf-rz-Dpe" userLabel="ContainerView">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hJJ-Vk-Bob" userLabel="ContentView">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundLaunchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="N4Y-ix-6OS">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q9h-tL-6iH" userLabel="StartButton">
+                                    <rect key="frame" x="135" y="431" width="144" height="34"/>
+                                    <color key="backgroundColor" red="0.21568627450980393" green="0.38431372549019605" blue="0.67450980392156867" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                    <state key="normal" title="Pokemon Not Go">
+                                        <color key="titleColor" red="1" green="0.79607843137254897" blue="0.019607843137254902" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="Q9h-tL-6iH" firstAttribute="centerX" secondItem="hJJ-Vk-Bob" secondAttribute="centerX" id="3a6-bU-bAY"/>
+                                <constraint firstItem="Q9h-tL-6iH" firstAttribute="centerY" secondItem="hJJ-Vk-Bob" secondAttribute="centerY" id="GAR-Yx-R0K"/>
+                                <constraint firstItem="N4Y-ix-6OS" firstAttribute="top" secondItem="hJJ-Vk-Bob" secondAttribute="top" id="LCU-86-lOP"/>
+                                <constraint firstItem="N4Y-ix-6OS" firstAttribute="leading" secondItem="hJJ-Vk-Bob" secondAttribute="leading" id="ZeC-0N-BbF"/>
+                                <constraint firstAttribute="bottom" secondItem="N4Y-ix-6OS" secondAttribute="bottom" id="sHM-77-pal"/>
+                                <constraint firstAttribute="trailing" secondItem="N4Y-ix-6OS" secondAttribute="trailing" id="vX3-f8-okH"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="hJJ-Vk-Bob" firstAttribute="leading" secondItem="uVf-rz-Dpe" secondAttribute="leading" id="Bsd-1E-6Xl"/>
+                        <constraint firstAttribute="bottom" secondItem="hJJ-Vk-Bob" secondAttribute="bottom" id="gp7-6D-MxB"/>
+                        <constraint firstItem="hJJ-Vk-Bob" firstAttribute="top" secondItem="uVf-rz-Dpe" secondAttribute="top" id="pRT-4i-QCd"/>
+                        <constraint firstAttribute="trailing" secondItem="hJJ-Vk-Bob" secondAttribute="trailing" id="skd-gY-hk8"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="uVf-rz-Dpe" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Pbr-y6-KqP"/>
+                <constraint firstItem="uVf-rz-Dpe" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="mo8-3q-KXm"/>
+                <constraint firstAttribute="bottom" secondItem="uVf-rz-Dpe" secondAttribute="bottom" id="qFN-OP-e0Q"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="uVf-rz-Dpe" secondAttribute="trailing" id="rz4-hh-lrp"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <connections>
+                <outlet property="startButton" destination="Q9h-tL-6iH" id="Iga-aQ-A2P"/>
+            </connections>
+            <point key="canvasLocation" x="132" y="133"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="backgroundLaunchScreen" width="160" height="240"/>
+    </resources>
+</document>
