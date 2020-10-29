@@ -11,3 +11,9 @@ import Foundation
 func toString(_ cls: AnyClass) -> String {
     return String(describing: cls)
 }
+
+func dispatchOnMain(_ completion: @escaping () -> ()) {
+    DispatchQueue.main.async {
+        completion()
+    }
+}

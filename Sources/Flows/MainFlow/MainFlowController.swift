@@ -46,9 +46,7 @@ class MainFlowController: BaseFlowNavigationContainer {
     private func handle(events: MainViewModelEvents) {
         switch events {
         case .start:
-            DispatchQueue.main.async {
-                self.showPokemonsController()
-            }
+            dispatchOnMain { self.showPokemonsController() }
         }
     }
     

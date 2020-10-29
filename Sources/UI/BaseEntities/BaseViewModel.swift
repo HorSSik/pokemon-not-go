@@ -20,7 +20,7 @@ class BaseViewModel<Events>: NSObject, BaseViewModelType {
     // MARK: -
     // MARK: Initialization
     
-    public init(networking: NetworkServiceType, _ callBackHandler: @escaping (Events) -> ()) {
+    public init(_ callBackHandler: @escaping (Events) -> ()) {
         self.callBackHandler = callBackHandler
     }
 }

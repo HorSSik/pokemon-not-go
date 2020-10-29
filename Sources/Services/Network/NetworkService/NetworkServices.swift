@@ -23,20 +23,3 @@ class NetworkServices: NetworkServiceType {
     
     public let pokemonsProvider: PokemonsProviderType = PokemonsProvider<NetworkPokemons>()
 }
-
-public protocol PokemonsProviderType {
-    
-    func getPokemons()
-}
-
-class PokemonsProvider<AllPokemonsProvider: NetworkProcessable>: PokemonsProviderType {
-    
-    // MARK: -
-    // MARK: Public
-    
-    public func getPokemons() {
-        AllPokemonsProvider.self <=| { result in
-            print("result - \(result)")
-        }
-    }
-}

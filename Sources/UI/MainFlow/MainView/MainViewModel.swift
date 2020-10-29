@@ -15,4 +15,20 @@ enum MainViewModelEvents {
 
 class MainViewModel: BaseViewModel<MainViewModelEvents> {
     
+    // MARK: -
+    // MARK: Variables
+    
+    private let networking: NetworkServiceType
+    
+    // MARK: -
+    // MARK: Initialization
+    
+    public init(
+        networking: NetworkServiceType,
+        _ callBackHandler: @escaping (MainViewModelEvents) -> ()
+    ) {
+        self.networking = networking
+        
+        super.init(callBackHandler)
+    }
 }
