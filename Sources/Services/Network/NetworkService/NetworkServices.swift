@@ -21,5 +21,5 @@ class NetworkServices: NetworkServiceType {
     // MARK: -
     // MARK: Variables
     
-    public let pokemonsProvider: PokemonsProviderType = PokemonsProvider<NetworkPokemons>()
+    public let pokemonsProvider: PokemonsProviderType = PokemonsProvider<NetworkPokemons, NetworkDetailPokemon>()
 }

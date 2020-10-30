@@ -14,10 +14,12 @@ import RxCocoa
 public protocol PokemonsProviderType {
     
     func getPokemons(limit: Int) -> Single<PokemonsModel>
+    func getDetailInfo(name: String) -> Single<PokemonDetailModel>
 }
 
-class PokemonsProvider<AllPokemonsProvider: NetworkProcessable>: PokemonsProviderType
-    where AllPokemonsProvider.ReturnedType == PokemonsModel {
+class PokemonsProvider<AllPokemonsProvider: NetworkProcessable, DetailPokemonModel: NetworkProcessable>: PokemonsProviderType
+where AllPokemonsProvider.ReturnedType == PokemonsModel,
+      DetailPokemonModel.ReturnedType == PokemonDetailModel {
     
     // MARK: -
     // MARK: Public
@@ -26,5 +28,11 @@ class PokemonsProvider<AllPokemonsProvider: NetworkProcessable>: PokemonsProvide
         let params = PokemonsParams(limit: limit)
         
         return get(with: AllPokemonsProvider.self +| params)
+    }
+    
+    public func getDetailInfo(name: String) -> Single<PokemonDetailModel> {
+        let params = DetailPokemonParams(name: name)
+        
+        return get(with: DetailPokemonModel.self +| params)
     }
 }
