@@ -8,7 +8,12 @@
 
 import UIKit
 
-class BaseCell<Model, Event>: UITableViewCell {
+protocol BaseCellType {
+    
+    func fill(model: Any, _ callBackHandler: @escaping (Any) -> ())
+}
+
+class BaseCell<Model, Event>: UITableViewCell, BaseCellType {
     
     // MARK: -
     // MARK: Variables
@@ -17,9 +22,6 @@ class BaseCell<Model, Event>: UITableViewCell {
     
     // MARK: -
     // MARK: Life cycle
-    
-    // MARK: -
-    // MARK: Cell Life Cycle
     
     override open func awakeFromNib() {
         super.awakeFromNib()
@@ -36,8 +38,12 @@ class BaseCell<Model, Event>: UITableViewCell {
     // MARK: -
     // MARK: Public
     
-    public func fill(model: Model, _ callBackHandler: @escaping (Event) -> ()) {
-        self.callBackHandler = callBackHandler
+    public func fill(model: Any, _ callBackHandler: @escaping (Any) -> ()) {
+        if let value = model as? Model {
+            self.callBackHandler = callBackHandler
+            
+            self.fill(with: value)
+        }
     }
     
     open func fill(with model: Model) {

@@ -13,10 +13,23 @@ class MainView: BaseView<MainViewModel> {
     // MARK: -
     // MARK: Outleties
     
+    @IBOutlet internal var startButtonView: UIView?
     @IBOutlet internal var startButton: UIButton?
     
     // MARK: -
     // MARK: Private
+    
+    private func showStartButtonView() {
+        self.startButtonView?.alpha = 0
+        
+        UIView
+            .animate(
+                withDuration: 1,
+                animations: { [weak self] in
+                    self?.startButtonView?.alpha = 1
+                }
+            )
+    }
     
     private func prepareBindings(viewModel: MainViewModel) {
         self.startButton?
@@ -32,6 +45,7 @@ class MainView: BaseView<MainViewModel> {
     // MARK: Overrided
     
     override func fill(with viewModel: MainViewModel) {
+        self.showStartButtonView()
         self.prepareBindings(viewModel: viewModel)
     }
 }

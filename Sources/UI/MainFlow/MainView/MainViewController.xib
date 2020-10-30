@@ -26,22 +26,83 @@
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundLaunchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="N4Y-ix-6OS">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 </imageView>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q9h-tL-6iH" userLabel="StartButton">
-                                    <rect key="frame" x="135" y="431" width="144" height="34"/>
-                                    <color key="backgroundColor" red="0.21568627450980393" green="0.38431372549019605" blue="0.67450980392156867" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                    <state key="normal" title="Pokemon Not Go">
-                                        <color key="titleColor" red="1" green="0.79607843137254897" blue="0.019607843137254902" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
-                                    </state>
-                                </button>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CmF-kn-Y60" userLabel="PokeballView">
+                                    <rect key="frame" x="147" y="388" width="120" height="120"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WNO-F1-h11">
+                                            <rect key="frame" x="0.0" y="0.0" width="120" height="60"/>
+                                            <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="2"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mx4-YN-3ex">
+                                            <rect key="frame" x="45" y="45" width="30" height="30"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="30" id="1XV-1d-MII"/>
+                                                <constraint firstAttribute="height" constant="30" id="kYm-8Y-2pe"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="2"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="15"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qJj-AW-atW">
+                                            <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                            <state key="normal" title="GO">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <constraints>
+                                        <constraint firstItem="qJj-AW-atW" firstAttribute="top" secondItem="CmF-kn-Y60" secondAttribute="top" id="C1l-bT-xFT"/>
+                                        <constraint firstItem="mx4-YN-3ex" firstAttribute="centerX" secondItem="CmF-kn-Y60" secondAttribute="centerX" id="IeA-EJ-aJ4"/>
+                                        <constraint firstItem="WNO-F1-h11" firstAttribute="top" secondItem="CmF-kn-Y60" secondAttribute="top" id="OPE-oY-Cjc"/>
+                                        <constraint firstItem="mx4-YN-3ex" firstAttribute="centerY" secondItem="CmF-kn-Y60" secondAttribute="centerY" id="Oj8-XP-CZT"/>
+                                        <constraint firstAttribute="height" constant="120" id="PN5-hp-pUP"/>
+                                        <constraint firstAttribute="trailing" secondItem="WNO-F1-h11" secondAttribute="trailing" id="anQ-KC-web"/>
+                                        <constraint firstItem="WNO-F1-h11" firstAttribute="height" secondItem="CmF-kn-Y60" secondAttribute="height" multiplier="0.5" id="cjN-P5-s30"/>
+                                        <constraint firstItem="WNO-F1-h11" firstAttribute="leading" secondItem="CmF-kn-Y60" secondAttribute="leading" id="d8t-gr-4OF"/>
+                                        <constraint firstItem="qJj-AW-atW" firstAttribute="leading" secondItem="CmF-kn-Y60" secondAttribute="leading" id="fwX-yK-AYN"/>
+                                        <constraint firstAttribute="bottom" secondItem="qJj-AW-atW" secondAttribute="bottom" id="jSa-82-8vS"/>
+                                        <constraint firstAttribute="width" constant="120" id="o8R-fn-Z9W"/>
+                                        <constraint firstAttribute="trailing" secondItem="qJj-AW-atW" secondAttribute="trailing" id="vUi-ru-Pcx"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="60"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="2"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstItem="Q9h-tL-6iH" firstAttribute="centerX" secondItem="hJJ-Vk-Bob" secondAttribute="centerX" id="3a6-bU-bAY"/>
-                                <constraint firstItem="Q9h-tL-6iH" firstAttribute="centerY" secondItem="hJJ-Vk-Bob" secondAttribute="centerY" id="GAR-Yx-R0K"/>
                                 <constraint firstItem="N4Y-ix-6OS" firstAttribute="top" secondItem="hJJ-Vk-Bob" secondAttribute="top" id="LCU-86-lOP"/>
+                                <constraint firstItem="CmF-kn-Y60" firstAttribute="centerX" secondItem="hJJ-Vk-Bob" secondAttribute="centerX" id="Om1-FJ-dmm"/>
                                 <constraint firstItem="N4Y-ix-6OS" firstAttribute="leading" secondItem="hJJ-Vk-Bob" secondAttribute="leading" id="ZeC-0N-BbF"/>
                                 <constraint firstAttribute="bottom" secondItem="N4Y-ix-6OS" secondAttribute="bottom" id="sHM-77-pal"/>
+                                <constraint firstItem="CmF-kn-Y60" firstAttribute="centerY" secondItem="hJJ-Vk-Bob" secondAttribute="centerY" id="uqj-uH-dUt"/>
                                 <constraint firstAttribute="trailing" secondItem="N4Y-ix-6OS" secondAttribute="trailing" id="vX3-f8-okH"/>
                             </constraints>
                         </view>
@@ -64,7 +125,8 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <connections>
-                <outlet property="startButton" destination="Q9h-tL-6iH" id="Iga-aQ-A2P"/>
+                <outlet property="startButton" destination="qJj-AW-atW" id="2Pd-7m-0fH"/>
+                <outlet property="startButtonView" destination="CmF-kn-Y60" id="rxz-68-90U"/>
             </connections>
             <point key="canvasLocation" x="132" y="133"/>
         </view>

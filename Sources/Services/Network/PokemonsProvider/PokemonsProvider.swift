@@ -8,9 +8,12 @@
 
 import Foundation
 
+import RxSwift
+import RxCocoa
+
 public protocol PokemonsProviderType {
     
-    func getPokemons(limit: Int)
+    func getPokemons(limit: Int) -> Single<PokemonsModel>
 }
 
 class PokemonsProvider<AllPokemonsProvider: NetworkProcessable>: PokemonsProviderType
@@ -19,16 +22,9 @@ class PokemonsProvider<AllPokemonsProvider: NetworkProcessable>: PokemonsProvide
     // MARK: -
     // MARK: Public
     
-    public func getPokemons(limit: Int) {
+    public func getPokemons(limit: Int) -> Single<PokemonsModel> {
         let params = PokemonsParams(limit: limit)
         
-        (AllPokemonsProvider.self +| params) <=| { result in
-            switch result {
-            case let .success(model):
-                print("model count - \(model.results.count)")
-            case .failure(_):
-                break
-            }
-        }
+        return get(with: AllPokemonsProvider.self +| params)
     }
 }

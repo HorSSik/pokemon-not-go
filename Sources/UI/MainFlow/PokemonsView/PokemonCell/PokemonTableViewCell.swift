@@ -15,6 +15,8 @@ class PokemonTableViewCell: BaseCell<PokemonData, PokemonTableViewCellEvents> {
     // MARK: -
     // MARK: Outleties
     
+    @IBOutlet internal var containerView: UIView?
+    
     @IBOutlet internal var titleLabel: UILabel?
     @IBOutlet internal var pokemonNameLabel: UILabel?
     
@@ -25,6 +27,6 @@ class PokemonTableViewCell: BaseCell<PokemonData, PokemonTableViewCellEvents> {
         let name = model.name
         
         self.titleLabel?.text = "Who's that pokemon?"
-        self.pokemonNameLabel?.text = name.dropFirst().uppercased() + name
+        self.pokemonNameLabel?.text = name.capitalizingFirstLetter()
     }
 }

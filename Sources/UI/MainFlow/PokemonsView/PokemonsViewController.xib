@@ -16,9 +16,99 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT" customClass="PokemonsView" customModule="Pokemon_Not_Go" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zxA-7K-aSR" userLabel="ContainerView">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundLaunchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="a24-iU-YBN">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        </imageView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3d6-xe-I16" userLabel="NavigationView">
+                            <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lDO-Ke-ZeO">
+                                    <rect key="frame" x="157" y="6" width="100" height="32"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="100" id="Bwb-l7-FRO"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                    <state key="normal" title="Go back">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="8"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="lDO-Ke-ZeO" firstAttribute="centerX" secondItem="3d6-xe-I16" secondAttribute="centerX" id="9iF-dQ-A6z"/>
+                                <constraint firstItem="lDO-Ke-ZeO" firstAttribute="centerY" secondItem="3d6-xe-I16" secondAttribute="centerY" id="FrT-lq-YJi"/>
+                                <constraint firstAttribute="height" constant="44" id="ikC-IJ-Dek"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HdI-9p-T1f" userLabel="ContentVIew">
+                            <rect key="frame" x="0.0" y="100" width="414" height="796"/>
+                            <subviews>
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="khH-G7-4Ss">
+                                    <rect key="frame" x="16" y="0.0" width="382" height="780"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="sectionIndexColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </tableView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="khH-G7-4Ss" secondAttribute="bottom" constant="16" id="FNE-WQ-UI9"/>
+                                <constraint firstItem="khH-G7-4Ss" firstAttribute="leading" secondItem="HdI-9p-T1f" secondAttribute="leading" constant="16" id="YUa-7M-oZe"/>
+                                <constraint firstItem="khH-G7-4Ss" firstAttribute="top" secondItem="HdI-9p-T1f" secondAttribute="top" id="cch-ql-3YP"/>
+                                <constraint firstAttribute="trailing" secondItem="khH-G7-4Ss" secondAttribute="trailing" constant="16" id="qbZ-lK-2L9"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstItem="a24-iU-YBN" firstAttribute="leading" secondItem="zxA-7K-aSR" secondAttribute="leading" id="59d-eh-3Eg"/>
+                        <constraint firstItem="3d6-xe-I16" firstAttribute="leading" secondItem="zxA-7K-aSR" secondAttribute="leading" id="Lsy-fZ-i74"/>
+                        <constraint firstAttribute="trailing" secondItem="a24-iU-YBN" secondAttribute="trailing" id="QNs-8q-Xi2"/>
+                        <constraint firstItem="HdI-9p-T1f" firstAttribute="top" secondItem="3d6-xe-I16" secondAttribute="bottom" constant="12" id="WtD-Zc-CUc"/>
+                        <constraint firstAttribute="trailing" secondItem="3d6-xe-I16" secondAttribute="trailing" id="ZsF-kN-jYp"/>
+                        <constraint firstItem="HdI-9p-T1f" firstAttribute="leading" secondItem="zxA-7K-aSR" secondAttribute="leading" id="gnV-nl-CsC"/>
+                        <constraint firstItem="a24-iU-YBN" firstAttribute="top" secondItem="zxA-7K-aSR" secondAttribute="top" id="j26-pj-RwJ"/>
+                        <constraint firstAttribute="trailing" secondItem="HdI-9p-T1f" secondAttribute="trailing" id="qBP-EP-vOZ"/>
+                        <constraint firstAttribute="bottom" secondItem="HdI-9p-T1f" secondAttribute="bottom" id="uy1-jB-HR7"/>
+                        <constraint firstAttribute="bottom" secondItem="a24-iU-YBN" secondAttribute="bottom" id="yx3-g7-Xxo"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="zxA-7K-aSR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="5dV-fv-TzV"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="zxA-7K-aSR" secondAttribute="trailing" id="Ceg-Ni-rG2"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="top" secondItem="3d6-xe-I16" secondAttribute="top" id="FGt-tN-Q8D"/>
+                <constraint firstItem="zxA-7K-aSR" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ahx-EZ-iCn"/>
+                <constraint firstAttribute="bottom" secondItem="zxA-7K-aSR" secondAttribute="bottom" id="ctI-W8-Ifm"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <connections>
+                <outlet property="backButton" destination="lDO-Ke-ZeO" id="pge-v4-P3o"/>
+                <outlet property="pokemonsTableView" destination="khH-G7-4Ss" id="Rwh-lR-YjT"/>
+            </connections>
             <point key="canvasLocation" x="132" y="122"/>
         </view>
     </objects>
+    <resources>
+        <image name="backgroundLaunchScreen" width="160" height="240"/>
+    </resources>
 </document>

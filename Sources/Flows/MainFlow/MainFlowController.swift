@@ -57,13 +57,15 @@ class MainFlowController: BaseFlowNavigationContainer {
         
         let pokemonsViewController = PokemonsViewController(viewModel: pokemonsViewModel)
         
-        self.push(viewController: pokemonsViewController, animated: true)
+        self.push(viewController: pokemonsViewController, animated: false)
     }
     
     private func handle(events: PokemonsViewModelEvents) {
         switch events {
-        case .showPokemonInfo:
-            print("showPokemonInfo")
+        case .back:
+            dispatchOnMain { self.pop(animated: false) }
+        case let .showPokemonInfo(pokemonData):
+            print("showPokemonInfo - \(pokemonData)")
         }
     }
 }

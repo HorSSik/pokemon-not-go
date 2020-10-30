@@ -186,3 +186,137 @@ public func multipleParamRequest<ModelType, Params: QueryParamsType>(model: Mode
     
     return Request(modelType: model, url: url)
 }
+
+//MARK: -
+//MARK: Pipe-forward
+
+infix operator |>: AdditionPrecedence
+infix operator ||>: AdditionPrecedence
+
+public func |> <A, Result>(value: A, transform: @escaping (A) -> Result) -> Result {
+    return transform(value)
+}
+
+public func |> <A, Result>(value: A, transform: @escaping (A) throws -> Result) -> Result? {
+    return try? transform(value)
+}
+
+public func ||> <A, B, Result>(value: (A, B), transform: @escaping (A) -> (B) -> Result) -> Result {
+    let (a, b) = value
+    
+    return transform(a)(b)
+}
+
+public func ||> <A, B, Result>(value: (A, B), transform: @escaping (A, B) -> Result) -> Result {
+    let (a, b) = value
+    
+    return transform(a, b)
+}
+
+//MARK: -
+//MARK: Optional Pipe-forward
+
+infix operator ?|>: AdditionPrecedence
+infix operator <|?: AdditionPrecedence
+
+public func ?|> <A, Result>(value: A?, transform: ((A) -> Result)?) -> Result? {
+    return value.apply(transform)
+}
+
+public func <|? <A, Result>(transform: ((A?) -> Result)?, value: A?) -> Result? {
+    return transform?(value)
+}
+
+public func <|? <A, Result>(transform: ((A) -> Result)?, value: A?) -> Result? {
+    return value.apply(transform)
+}
+
+//MARK: -
+//MARK: Pipe-backward
+
+infix operator <|: AdditionPrecedence
+infix operator <||: AdditionPrecedence
+infix operator <||?: AdditionPrecedence
+
+public func <| <A, Result>(transform: @escaping (A) -> Result, value: A) -> Result {
+    return value |> transform
+}
+
+public func <|| <A, B, Result>(transform: @escaping (A) -> (B) -> Result, value: (A, B)) -> Result {
+    return value ||> transform
+}
+
+public func <|| <A, B, Result>(transform: @escaping (A, B) -> Result, value: (A, B)) -> Result {
+    return value ||> transform
+}
+
+public func <|| <A, B, C, Result>(transform: @escaping (A, B, C) -> Result, value: (A, B, C)) -> Result {
+    return transform(value.0, value.1, value.2)
+}
+
+public func <||? <A, B, Result>(transform: ((A, B) -> Result)?, value: (A, B)) -> Result? {
+    return transform?(value.0, value.1)
+}
+
+//MARK: -
+//MARK: Composition
+
+infix operator •: MultiplicationPrecedence
+
+public func • <A, B, C>(f1: @escaping (A) -> B, f2: @escaping (B) -> C) -> (A) -> C {
+    return { f1($0) |> f2 }
+}
+
+//MARK: -
+//MARK: Curry and uncarry
+
+postfix operator <>
+
+public postfix func <> <A, B, C, D, E>(f: @escaping (A, B, C, D) -> E) -> (A) -> (B) -> (C) -> (D) -> E {
+    return { a in { b in { c in { d in f(a, b, c, d) } } } }
+}
+
+public postfix func <> <A, B, C, D, E, F>(f: @escaping (A, B, C, D, E) -> F) -> (A) -> (B) -> (C) -> (D) -> (E) -> F {
+    return { a in { b in { c in { d in { e in f(a, b, c, d, e) } } } } }
+}
+
+public postfix func <> <A, B, C, D>(f: @escaping (A, B, C) -> D) -> (A) -> (B) -> (C) -> D {
+    return { a in
+        { b in { f(a, b, $0) } }
+    }
+}
+
+public postfix func <> <A, B, C>(f: @escaping (A, B) -> C) -> (A) -> (B) -> C {
+    return { a in
+        { f(a, $0) }
+    }
+}
+
+postfix operator ><
+
+public postfix func >< <A, B, C>(f: @escaping (A) -> (B) -> C) -> (A, B) -> C {
+    return { ($0, $1) ||> f }
+}
+
+//MARK: -
+//MARK: Partial application
+
+infix operator <|>: MultiplicationPrecedence
+
+public func <|> <A, B, C>(f: @escaping (A, B) -> C, value: A) -> (B) -> C {
+    return value |> f<>
+}
+
+//MARK: Funcs
+
+public func flip<A, B, Result>(_ f: @escaping (A, B) -> Result) -> (B, A) -> Result {
+    return { f($1, $0) }
+}
+
+public func flip<A, B, C, Result>(_ f: @escaping (A, B, C) -> Result) -> (C, B, A) -> Result {
+    return { f($2, $1, $0) }
+}
+
+public func flatten<Value>(_ value: Value??) -> Value? {
+    return value.flatMap { $0 }
+}
