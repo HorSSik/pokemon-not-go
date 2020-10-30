@@ -21,17 +21,4 @@ public struct NetworkDetailPokemon: NetworkProcessable {
     }
 }
 
-public struct DetailPokemonParams: QueryParamsType {
-    
-    // MARK: -
-    // MARK: Variables
-
-    public let name: String
-
-    // MARK: -
-    // MARK: Initialization
-
-    public init(name: String) {
-        self.name = name
-    }
-}
+public struct DetailPokemonParams: QueryParamsType { }

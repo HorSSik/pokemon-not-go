@@ -31,8 +31,8 @@ where AllPokemonsProvider.ReturnedType == PokemonsModel,
     }
     
     public func getDetailInfo(name: String) -> Single<PokemonDetailModel> {
-        let params = DetailPokemonParams(name: name)
+        let params = DetailPokemonParams()
         
-        return get(with: DetailPokemonModel.self +| params)
+        return get(with: multipleParamRequest(model: DetailPokemonModel.self, pathParam: name, queryParams: params))
     }
 }

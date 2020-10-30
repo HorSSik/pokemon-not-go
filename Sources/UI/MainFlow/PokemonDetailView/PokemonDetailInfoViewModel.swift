@@ -8,6 +8,9 @@
 
 import Foundation
 
+import RxSwift
+import RxCocoa
+
 enum PokemonDetailInfoViewModelEvents {
     
     case back
@@ -15,4 +18,80 @@ enum PokemonDetailInfoViewModelEvents {
 
 class PokemonDetailInfoViewModel: BaseViewModel<PokemonDetailInfoViewModelEvents> {
     
+    // MARK: -
+    // MARK: Variables
+    
+    public let didUpdate = PublishSubject<Void>()
+    
+    private let networking: NetworkServiceType
+    
+    private(set) public var pokemonDetailModel: PokemonDetailModel?
+    
+    public var backDefaultUrl: URL {
+        return self.pokemonDetailModel?.sprites.backDefault ?? URL(fileURLWithPath: "")
+    }
+    
+    public var backUrl: URL {
+        return self.pokemonDetailModel?.sprites.backShiny ?? URL(fileURLWithPath: "")
+    }
+    
+    public var frontDefaultUrl: URL {
+        return self.pokemonDetailModel?.sprites.frontDefault ?? URL(fileURLWithPath: "")
+    }
+    
+    public var frontUrl: URL {
+        return self.pokemonDetailModel?.sprites.frontShiny ?? URL(fileURLWithPath: "")
+    }
+    
+    public var pokemonName: String {
+        return "Pokemon name: " + (self.pokemonDetailModel?.name ?? "Not found").capitalizingFirstLetter()
+    }
+    
+    public var pokemonOrder: String {
+        return "Pokemon order: " + String(self.pokemonDetailModel?.order ?? 0)
+    }
+    
+    public var pokemonWeight: String {
+        return "Pokemon weight: " + String(self.pokemonDetailModel?.weight ?? 0)
+    }
+    
+    public var pokemonHeight: String {
+        return "Pokemon height: " + String(self.pokemonDetailModel?.height ?? 0)
+    }
+    
+    // MARK: -
+    // MARK: Initialization
+    
+    public init(
+        networking: NetworkServiceType,
+        pokemonData: PokemonData,
+        _ callBackHandler: @escaping (PokemonDetailInfoViewModelEvents) -> ()
+    ) {
+        self.networking = networking
+        
+        super.init(callBackHandler)
+        
+        self.getDetailInfo(pokemonName: pokemonData.name)
+    }
+    
+    // MARK: -
+    // MARK: Private
+    
+    private func getDetailInfo(pokemonName: String) {
+        self.networking
+            .pokemonsProvider
+            .getDetailInfo(name: pokemonName)
+            .subscribe(
+                onSuccess: { model in
+                    self.pokemonDetailModel = model
+                    
+                    self.didUpdate.onNext(())
+                    print("getDetailInfo - \(model)")
+                },
+                onError: { error in
+                    print("getDetailInfo error - \(error)")
+                }
+            )
+            .disposed(by: self.disposeBag)
+    }
 }

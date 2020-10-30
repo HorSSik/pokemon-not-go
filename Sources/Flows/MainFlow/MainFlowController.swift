@@ -65,7 +65,28 @@ class MainFlowController: BaseFlowNavigationContainer {
         case .back:
             dispatchOnMain { self.pop(animated: false) }
         case let .showPokemonInfo(pokemonData):
-            print("showPokemonInfo - \(pokemonData)")
+            dispatchOnMain { self.showPokemonDetailInfo(pokemonData: pokemonData) }
+        }
+    }
+    
+    private func showPokemonDetailInfo(pokemonData: PokemonData) {
+        let pokemonDeatilInfoViewModel = PokemonDetailInfoViewModel(
+            networking: self.networking,
+            pokemonData: pokemonData
+        ) { [weak self] events in
+            self?.handle(events: events)
+        }
+        let pokemonDetailInfoController = PokemonDetailInfoViewController(
+            viewModel: pokemonDeatilInfoViewModel
+        )
+        
+        self.present(pokemonDetailInfoController, animated: true, completion: nil)
+    }
+    
+    private func handle(events: PokemonDetailInfoViewModelEvents) {
+        switch events {
+        case .back:
+            dispatchOnMain { self.dismiss(animated: true, completion: nil) }
         }
     }
 }
