@@ -17,7 +17,7 @@ public struct NetworkPokemons: NetworkProcessable {
     public typealias Service = UrlSessionService
     
     public static var url: URL {
-        get { return URL(string: "https://pokeapi.co/api/v2" + "/pokemon") ?? URL(fileURLWithPath: "") }
+        get { return URL(string: NetworkConstants.api + "/pokemon") ?? URL(fileURLWithPath: "") }
     }
 }
 
