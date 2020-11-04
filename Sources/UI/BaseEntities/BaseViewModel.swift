@@ -11,12 +11,19 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-protocol BaseViewModelType { }
+protocol BaseViewModelType: class {
+    
+    var lockHandler: EmptyAction? { get set }
+    var unlockHandler: EmptyAction? { get set }
+}
 
 class BaseViewModel<Events>: NSObject, BaseViewModelType {
     
     // MARK: -
     // MARK: Variables
+    
+    public var lockHandler: EmptyAction?
+    public var unlockHandler: EmptyAction?
     
     private(set) public var disposeBag = DisposeBag()
     

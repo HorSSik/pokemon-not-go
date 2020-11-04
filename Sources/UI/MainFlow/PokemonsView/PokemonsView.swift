@@ -20,6 +20,8 @@ class PokemonsView: BaseView<PokemonsViewModel> {
     
     @IBOutlet internal var pokemonsTableView: UITableView?
     
+    @IBOutlet internal var contentView: UIView?
+    
     // MARK: -
     // MARK: Private
     
@@ -46,6 +48,8 @@ class PokemonsView: BaseView<PokemonsViewModel> {
     // MARK: Overrided
     
     override func fill(with viewModel: PokemonsViewModel) {
+        super.fill(with: viewModel)
+        
         self.prepareBindings(viewModel: viewModel)
         
         viewModel.configureTableView(tableView: self.pokemonsTableView)

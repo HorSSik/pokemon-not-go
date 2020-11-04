@@ -68,6 +68,8 @@ class PokemonDetailInfoView: BaseView<PokemonDetailInfoViewModel> {
     // MARK: Overrided
     
     override func fill(with viewModel: PokemonDetailInfoViewModel) {
+        super.fill(with: viewModel)
+        
         self.prepareBindings(viewModel: viewModel)
         
         self.didUpdateDispose?.dispose()
@@ -89,5 +91,7 @@ class PokemonDetailInfoView: BaseView<PokemonDetailInfoViewModel> {
                     self?.heightLabel?.text = viewModel?.pokemonHeight
                 }
             }
+        
+        viewModel.getDetailInfo()
     }
 }

@@ -16,12 +16,45 @@ class BaseView<ViewModel: BaseViewModelType>: UIView {
     // MARK: -
     // MARK: Variables
     
+    private var indicatorView: UIActivityIndicatorView?
+    
     private(set) public var disposeBag = DisposeBag()
     
     // MARK: -
     // MARK: Public
     
     public func fill(with viewModel: ViewModel) {
-        
+        viewModel.lockHandler = { [weak self] in self?.lock() }
+        viewModel.unlockHandler = { [weak self] in self?.unlock() }
+    }
+    
+    func lock(on view: UIView? = nil, color: UIColor = .black) {
+//        dispatchOnMain {
+            let indicatorView = UIActivityIndicatorView()
+            indicatorView.style = .large
+            indicatorView.color = color
+            indicatorView.startAnimating()
+            
+            if view != nil {
+                view?.addSubview(indicatorView)
+                indicatorView.center = view?.center ?? CGPoint()
+                view?.bringSubviewToFront(indicatorView)
+            } else {
+                self.addSubview(indicatorView)
+                indicatorView.center = self.center
+                self.bringSubviewToFront(indicatorView)
+            }
+            
+            self.unlock()
+            self.indicatorView = indicatorView
+//        }
+    }
+    
+    func unlock() {
+//        dispatchOnMain {
+            self.indicatorView?.stopAnimating()
+            self.indicatorView?.removeFromSuperview()
+            self.indicatorView = nil
+//        }
     }
 }

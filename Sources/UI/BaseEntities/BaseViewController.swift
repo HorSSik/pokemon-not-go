@@ -13,8 +13,8 @@ class BaseViewController<RootView: BaseView<ViewModel>, ViewModel>: UIViewContro
     // MARK: -
     // MARK: Variables
     
-    private var rootView: RootView {
-        return self.viewIfLoaded as! RootView
+    private var rootView: RootView? {
+        return cast(self.viewIfLoaded)
     }
     
     private(set) public var viewModel: ViewModel
@@ -25,7 +25,7 @@ class BaseViewController<RootView: BaseView<ViewModel>, ViewModel>: UIViewContro
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.rootView.fill(with: self.viewModel)
+        self.rootView?.fill(with: self.viewModel)
     }
     
     // MARK: -

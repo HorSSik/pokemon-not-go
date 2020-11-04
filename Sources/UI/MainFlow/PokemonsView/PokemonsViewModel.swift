@@ -44,8 +44,6 @@ class PokemonsViewModel: BaseViewModel<PokemonsViewModelEvents> {
         self.networking = networking
         
         super.init(callBackHandler)
-        
-        self.getPokemons()
     }
     
     // MARK: -
@@ -61,6 +59,10 @@ class PokemonsViewModel: BaseViewModel<PokemonsViewModelEvents> {
         }
         
         self.tableAdapter?.sections = [section]
+        
+        if self.pokemonsModel == nil {
+            self.getPokemons()
+        }
     }
     
     // MARK: -
@@ -74,16 +76,27 @@ class PokemonsViewModel: BaseViewModel<PokemonsViewModelEvents> {
     }
     
     private func getPokemons() {
+        self.lockHandler?()
+        
         self.networking
             .pokemonsProvider
             .getPokemons(limit: 50)
             .subscribe(
-                onSuccess: { model in
-                    dispatchOnMain {
-                        self.pokemonsModel = model
-                        
-                        self.updateTable.onNext(())
-                    }
+                onSuccess: { [weak self] model in
+                    DispatchQueue
+                        .main
+                        .asyncAfter(
+                            deadline: .now() + 1,
+                            execute: {
+                                dispatchOnMain {
+                                    self?.unlockHandler?()
+                                    
+                                    self?.pokemonsModel = model
+                                    
+                                    self?.updateTable.onNext(())
+                                }
+                            }
+                        )
                 },
                 onError: { error in
                     print("error - \(error)")

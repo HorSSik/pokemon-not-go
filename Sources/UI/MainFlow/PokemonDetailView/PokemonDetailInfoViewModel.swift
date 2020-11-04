@@ -21,12 +21,6 @@ class PokemonDetailInfoViewModel: BaseViewModel<PokemonDetailInfoViewModelEvents
     // MARK: -
     // MARK: Variables
     
-    public let didUpdate = PublishSubject<Void>()
-    
-    private let networking: NetworkServiceType
-    
-    private(set) public var pokemonDetailModel: PokemonDetailModel?
-    
     public var backDefaultUrl: URL {
         return self.pokemonDetailModel?.sprites.backDefault ?? URL(fileURLWithPath: "")
     }
@@ -59,6 +53,14 @@ class PokemonDetailInfoViewModel: BaseViewModel<PokemonDetailInfoViewModelEvents
         return "Pokemon height: " + String(self.pokemonDetailModel?.height ?? 0)
     }
     
+    public let didUpdate = PublishSubject<Void>()
+    
+    private let networking: NetworkServiceType
+    
+    private var pokemonData: PokemonData
+    
+    private(set) public var pokemonDetailModel: PokemonDetailModel?
+    
     // MARK: -
     // MARK: Initialization
     
@@ -68,24 +70,36 @@ class PokemonDetailInfoViewModel: BaseViewModel<PokemonDetailInfoViewModelEvents
         _ callBackHandler: @escaping (PokemonDetailInfoViewModelEvents) -> ()
     ) {
         self.networking = networking
+        self.pokemonData = pokemonData
         
         super.init(callBackHandler)
-        
-        self.getDetailInfo(pokemonName: pokemonData.name)
     }
     
     // MARK: -
     // MARK: Private
     
-    private func getDetailInfo(pokemonName: String) {
+    public func getDetailInfo() {
+        self.lockHandler?()
+        
         self.networking
             .pokemonsProvider
-            .getDetailInfo(name: pokemonName)
+            .getDetailInfo(name: self.pokemonData.name)
             .subscribe(
-                onSuccess: { model in
-                    self.pokemonDetailModel = model
-                    
-                    self.didUpdate.onNext(())
+                onSuccess: { [weak self] model in
+                    DispatchQueue
+                        .main
+                        .asyncAfter(
+                            deadline: .now() + 1,
+                            execute: {
+                                dispatchOnMain {
+                                    self?.unlockHandler?()
+                                    
+                                    self?.pokemonDetailModel = model
+                                    
+                                    self?.didUpdate.onNext(())
+                                }
+                            }
+                        )
                     print("getDetailInfo - \(model)")
                 },
                 onError: { error in
