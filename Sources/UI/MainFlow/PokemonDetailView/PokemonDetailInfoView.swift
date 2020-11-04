@@ -33,22 +33,7 @@ class PokemonDetailInfoView: BaseView<PokemonDetailInfoViewModel> {
     @IBOutlet internal var heightLabel: UILabel?
     
     // MARK: -
-    // MARK: Variables
-    
-    private var didUpdateDispose: Disposable?
-    
-    // MARK: -
     // MARK: Private
-    
-    private func prepareBindings(viewModel: PokemonDetailInfoViewModel) {
-        self.backButton?
-            .rx
-            .tap
-            .bind { [weak viewModel] in
-                viewModel?.callBackHandler?(.back)
-            }
-            .disposed(by: self.disposeBag)
-    }
     
     private func showView(isHidden: Bool) {
         self.contentView?.isHidden = isHidden
@@ -70,28 +55,18 @@ class PokemonDetailInfoView: BaseView<PokemonDetailInfoViewModel> {
     override func fill(with viewModel: PokemonDetailInfoViewModel) {
         super.fill(with: viewModel)
         
-        self.prepareBindings(viewModel: viewModel)
-        
-        self.didUpdateDispose?.dispose()
-        self.didUpdateDispose = viewModel
-            .didUpdate
-            .observeOn(MainScheduler.asyncInstance)
-            .bind { [weak self, weak viewModel] in
-                viewModel?.pokemonDetailModel.do { pokemonDetailModel in
-                    self?.showView(isHidden: false)
-                    
-                    self?.pokemonBackDefaultImageView?.kf.setImage(with: viewModel?.backDefaultUrl)
-                    self?.pokemonBackImageView?.kf.setImage(with: viewModel?.backUrl)
-                    self?.pokemonFrontDefaultImageView?.kf.setImage(with: viewModel?.frontDefaultUrl)
-                    self?.pokemonFrontImageView?.kf.setImage(with: viewModel?.frontUrl)
-                    
-                    self?.nameLabel?.text = viewModel?.pokemonName
-                    self?.orderLabel?.text = viewModel?.pokemonOrder
-                    self?.weightLabel?.text = viewModel?.pokemonWeight
-                    self?.heightLabel?.text = viewModel?.pokemonHeight
-                }
-            }
-        
-        viewModel.getDetailInfo()
+        viewModel.pokemonDetailModel.do { pokemonDetailModel in
+            self.showView(isHidden: false)
+            
+            self.pokemonBackDefaultImageView?.kf.setImage(with: viewModel.backDefaultUrl)
+            self.pokemonBackImageView?.kf.setImage(with: viewModel.backUrl)
+            self.pokemonFrontDefaultImageView?.kf.setImage(with: viewModel.frontDefaultUrl)
+            self.pokemonFrontImageView?.kf.setImage(with: viewModel.frontUrl)
+            
+            self.nameLabel?.text = viewModel.pokemonName
+            self.orderLabel?.text = viewModel.pokemonOrder
+            self.weightLabel?.text = viewModel.pokemonWeight
+            self.heightLabel?.text = viewModel.pokemonHeight
+        }
     }
 }

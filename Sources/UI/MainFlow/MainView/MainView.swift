@@ -31,21 +31,10 @@ class MainView: BaseView<MainViewModel> {
             )
     }
     
-    private func prepareBindings(viewModel: MainViewModel) {
-        self.startButton?
-            .rx
-            .tap
-            .bind { [weak viewModel] in
-                viewModel?.callBackHandler?(.start)
-            }
-            .disposed(by: self.disposeBag)
-    }
-    
     // MARK: -
     // MARK: Overrided
     
     override func fill(with viewModel: MainViewModel) {
         self.showStartButtonView()
-        self.prepareBindings(viewModel: viewModel)
     }
 }

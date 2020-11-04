@@ -8,16 +8,21 @@
 
 import UIKit
 
+import RxCocoa
+import RxSwift
+
 class BaseViewController<RootView: BaseView<ViewModel>, ViewModel>: UIViewController {
     
     // MARK: -
     // MARK: Variables
     
-    private var rootView: RootView? {
+    public var rootView: RootView? {
         return cast(self.viewIfLoaded)
     }
     
     private(set) public var viewModel: ViewModel
+    
+    private(set) public var disposeBag = DisposeBag()
     
     // MARK: -
     // MARK: Life cycle

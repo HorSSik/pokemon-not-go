@@ -10,7 +10,25 @@ import UIKit
 
 class MainViewController: BaseViewController<MainView, MainViewModel> {
     
+    // MARK: -
+    // MARK: Private
+    
+    private func prepareBindings() {
+        self.rootView?.startButton?
+            .rx
+            .tap
+            .bind { [weak self] in
+                self?.viewModel.callBackHandler?(.start)
+            }
+            .disposed(by: self.disposeBag)
+    }
+    
+    // MARK: -
+    // MARK: Overrided
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.prepareBindings()
     }
 }

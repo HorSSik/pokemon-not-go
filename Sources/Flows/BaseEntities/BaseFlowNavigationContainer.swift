@@ -20,7 +20,7 @@ class BaseFlowNavigationContainer: UIViewController, UINavigationControllerDeleg
     // MARK: Initialization
     
     public init(presenter: UINavigationController?) {
-        self.presenter = presenter
+        self.presenter = presenter // add back swipe
         let contentController = UINavigationController()
         self.contentController = contentController
         

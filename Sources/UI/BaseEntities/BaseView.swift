@@ -29,32 +29,23 @@ class BaseView<ViewModel: BaseViewModelType>: UIView {
     }
     
     func lock(on view: UIView? = nil, color: UIColor = .black) {
-//        dispatchOnMain {
-            let indicatorView = UIActivityIndicatorView()
-            indicatorView.style = .large
-            indicatorView.color = color
-            indicatorView.startAnimating()
-            
-            if view != nil {
-                view?.addSubview(indicatorView)
-                indicatorView.center = view?.center ?? CGPoint()
-                view?.bringSubviewToFront(indicatorView)
-            } else {
-                self.addSubview(indicatorView)
-                indicatorView.center = self.center
-                self.bringSubviewToFront(indicatorView)
-            }
-            
-            self.unlock()
-            self.indicatorView = indicatorView
-//        }
+        let indicatorView = UIActivityIndicatorView()
+        indicatorView.style = .large
+        indicatorView.color = color
+        indicatorView.startAnimating()
+        let view = view ?? self
+        
+        view.addSubview(indicatorView)
+        indicatorView.center = view.center
+        view.bringSubviewToFront(indicatorView)
+        
+        self.unlock()
+        self.indicatorView = indicatorView
     }
     
     func unlock() {
-//        dispatchOnMain {
-            self.indicatorView?.stopAnimating()
-            self.indicatorView?.removeFromSuperview()
-            self.indicatorView = nil
-//        }
+        self.indicatorView?.stopAnimating()
+        self.indicatorView?.removeFromSuperview()
+        self.indicatorView = nil
     }
 }

@@ -23,35 +23,11 @@ class PokemonsView: BaseView<PokemonsViewModel> {
     @IBOutlet internal var contentView: UIView?
     
     // MARK: -
-    // MARK: Private
-    
-    private func prepareBindings(viewModel: PokemonsViewModel) {
-        let disposeBag = self.disposeBag
-        
-        viewModel
-            .updateTable
-            .bind { [weak self, weak viewModel] in
-                viewModel?.configureTableView(tableView: self?.pokemonsTableView)
-            }
-            .disposed(by: disposeBag)
-        
-        self.backButton?
-            .rx
-            .tap
-            .bind { [weak viewModel] in
-                viewModel?.callBackHandler?(.back)
-            }
-            .disposed(by: disposeBag)
-    }
-    
-    // MARK: -
     // MARK: Overrided
     
     override func fill(with viewModel: PokemonsViewModel) {
         super.fill(with: viewModel)
         
-        self.prepareBindings(viewModel: viewModel)
-        
-        viewModel.configureTableView(tableView: self.pokemonsTableView)
+        self.backButton?.setTitle("Go back", for: .normal)
     }
 }
