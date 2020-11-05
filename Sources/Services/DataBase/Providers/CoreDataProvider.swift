@@ -32,7 +32,7 @@ class CoreDataProvider<Model: NSObject>: DataBaseProviderType {
             do {
                 let result = try managedContext.fetch(fetchRequest)
                 
-                for data in result as! [NSManagedObject] {
+                for data in result  {
                     let name = data.value(forKey: "name") as? String
                     
                     print("TEST User Name is : \(name)")
@@ -56,6 +56,10 @@ class CoreDataProvider<Model: NSObject>: DataBaseProviderType {
             let model = object as? PokemonDetailModel
             
             pokemon.setValue(model?.name, forKeyPath: "name")
+            pokemon.setValue(model?.order, forKeyPath: "order")
+            pokemon.setValue(model?.baseExperience, forKeyPath: "baseExperience")
+            pokemon.setValue(model?.weight, forKeyPath: "weight")
+            pokemon.setValue(model?.height, forKeyPath: "height")
             
             do {
                 try managedContext.save()
