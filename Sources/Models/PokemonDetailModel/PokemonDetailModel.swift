@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct PokemonDetailModel: NetworkModel, Codable {
+public class PokemonDetailModel: NSObject, NetworkModel, Codable {
     
     // MARK: -
     // MARK: Variables
@@ -31,7 +31,26 @@ public struct PokemonDetailModel: NetworkModel, Codable {
     }
     
     public static var empty: PokemonDetailModel {
-        return PokemonDetailModel(baseExperience: 0, name: "", order: 0, weight: 0, height: 0, sprites: .empty)
+        return PokemonDetailModel(baseExperience: 0, name: "Test", order: 0, weight: 0, height: 0, sprites: .empty)
+    }
+    
+    // MARK: -
+    // MARK: Initialization
+    
+    public init(
+        baseExperience: Int?,
+        name: String,
+        order: Int,
+        weight: Int,
+        height: Int,
+        sprites: Sprites
+    ) {
+        self.baseExperience = baseExperience
+        self.name = name
+        self.order = order
+        self.weight = weight
+        self.height = height
+        self.sprites = sprites
     }
 }
 

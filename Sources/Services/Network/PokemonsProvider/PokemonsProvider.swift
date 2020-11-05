@@ -17,9 +17,25 @@ public protocol PokemonsProviderType {
     func getDetailInfo(name: String) -> Single<PokemonDetailModel>
 }
 
-class PokemonsProvider<AllPokemonsProvider: NetworkProcessable, DetailPokemonModel: NetworkProcessable>: PokemonsProviderType
+class PokemonsProvider<
+    AllPokemonsProvider: NetworkProcessable,
+    DetailPokemonModel: NetworkProcessable,
+    CoreDataService: CoreDataServiceType>: PokemonsProviderType
 where AllPokemonsProvider.ReturnedType == PokemonsModel,
-      DetailPokemonModel.ReturnedType == PokemonDetailModel {
+      DetailPokemonModel.ReturnedType == PokemonDetailModel,
+      CoreDataService.Model == PokemonDetailModel  {
+    
+    // MARK: -
+    // MARK: Variables
+    
+    public let coreDataService: CoreDataService
+    
+    // MARK: -
+    // MARK: Initialization
+    
+    public init(coreDataService: CoreDataService) {
+        self.coreDataService = coreDataService
+    }
     
     // MARK: -
     // MARK: Public
@@ -31,7 +47,10 @@ where AllPokemonsProvider.ReturnedType == PokemonsModel,
     }
     
     public func getDetailInfo(name: String) -> Single<PokemonDetailModel> {
+        self.coreDataService.save(object: .empty)
         let params = DetailPokemonParams()
+        
+        let a = self.coreDataService.read(key: "Test")
         
         return get(with: multipleParamRequest(model: DetailPokemonModel.self, pathParam: name, queryParams: params))
     }
