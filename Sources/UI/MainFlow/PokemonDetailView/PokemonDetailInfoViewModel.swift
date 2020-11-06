@@ -13,10 +13,15 @@ import RxCocoa
 
 enum PokemonDetailInfoViewModelEvents {
     
-    case back
+    case back(pokemonData: PokemonData)
 }
 
-class PokemonDetailInfoViewModel: BaseViewModel<PokemonDetailInfoViewModelEvents> {
+enum PokemonDetailInfoViewModelInputEvents {
+    
+    
+}
+
+class PokemonDetailInfoViewModel: BaseViewModel<PokemonDetailInfoViewModelEvents, PokemonDetailInfoViewModelInputEvents> {
     
     // MARK: -
     // MARK: Variables
@@ -55,11 +60,11 @@ class PokemonDetailInfoViewModel: BaseViewModel<PokemonDetailInfoViewModelEvents
     
     public let didUpdate = PublishSubject<Void>()
     
-    private let networking: NetworkServiceType
-    
-    private var pokemonData: PokemonData
+    private(set) public var pokemonData: PokemonData
     
     private(set) public var pokemonDetailModel: PokemonDetailModel?
+    
+    private let networking: NetworkServiceType
     
     // MARK: -
     // MARK: Initialization
@@ -85,18 +90,24 @@ class PokemonDetailInfoViewModel: BaseViewModel<PokemonDetailInfoViewModelEvents
             .pokemonsProvider
             .getDetailInfo(name: self.pokemonData.name)
             .subscribe(
-                onSuccess: { [weak self] model in
+                onSuccess: { [unowned self] model in
                     DispatchQueue
                         .main
                         .asyncAfter(
                             deadline: .now() + 1,
                             execute: {
                                 dispatchOnMain {
-                                    self?.unlockHandler?()
+                                    self.unlockHandler?()
                                     
-                                    self?.pokemonDetailModel = model
+                                    self.pokemonData = PokemonData(
+                                        image: model.sprites.frontDefault,
+                                        name: self.pokemonData.name,
+                                        url: self.pokemonData.url
+                                    )
                                     
-                                    self?.didUpdate.onNext(())
+                                    self.pokemonDetailModel = model
+                                    
+                                    self.didUpdate.onNext(())
                                 }
                             }
                         )

@@ -20,7 +20,7 @@ class PokemonDetailInfoViewController: BaseViewController<PokemonDetailInfoView,
             .rx
             .tap
             .bind { [weak self] in
-                self?.viewModel.callBackHandler?(.back)
+                self?.viewModel.callBackHandler?(.back(pokemonData: self?.viewModel.pokemonData ?? .empty))
             }
             .disposed(by: disposeBag)
         

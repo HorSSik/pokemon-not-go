@@ -17,7 +17,7 @@ protocol BaseViewModelType: class {
     var unlockHandler: EmptyAction? { get set }
 }
 
-class BaseViewModel<Events>: NSObject, BaseViewModelType {
+class BaseViewModel<OutputEvents, InputEvents>: NSObject, BaseViewModelType {
     
     // MARK: -
     // MARK: Variables
@@ -27,21 +27,30 @@ class BaseViewModel<Events>: NSObject, BaseViewModelType {
     
     private(set) public var disposeBag = DisposeBag()
     
-    private(set) public var callBackHandler: ((Events) -> ())?
+    private(set) public var callBackHandler: ((OutputEvents) -> ())?
+    private(set) public var inputCallBackHandler: ((InputEvents) -> ())?
     
     // MARK: -
     // MARK: Initialization
     
-    public init(_ callBackHandler: @escaping (Events) -> ()) {
+    public init(_ callBackHandler: @escaping (OutputEvents) -> ()) {
         self.callBackHandler = callBackHandler
         
         super.init()
+        
+        self.inputCallBackHandler = { event in
+            self.handle(inputEvent: event)
+        }
         
         self.prepareBindings(disposeBag: self.disposeBag)
     }
     
     // MARK: -
     // MARK: Public
+    
+    func handle(inputEvent: InputEvents) {
+        
+    }
     
     func prepareBindings(disposeBag: DisposeBag) {
         

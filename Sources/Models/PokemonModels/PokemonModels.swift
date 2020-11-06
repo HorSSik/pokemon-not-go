@@ -14,7 +14,7 @@ public struct PokemonsModel: NetworkModel {
     // MARK: Variables
     
     public let count: Int
-    public let results: [PokemonData]
+    public var results: [PokemonData]
     
     public static var empty: PokemonsModel {
         return PokemonsModel(count: 0, results: [])
@@ -26,17 +26,19 @@ public struct PokemonData: NetworkModel {
     // MARK: -
     // MARK: Variables
     
+    public var image: URL?
     public let name: String
     public let url: URL
     
     public static var empty: PokemonData {
-        return PokemonData(name: "", url: URL(fileURLWithPath: ""))
+        return PokemonData(image: URL(fileURLWithPath: ""), name: "", url: URL(fileURLWithPath: ""))
     }
     
     // MARK: -
     // MARK: Initialization
     
-    public init(name: String, url: URL) {
+    public init(image: URL?, name: String, url: URL) {
+        self.image = image
         self.name = name
         self.url = url
     }

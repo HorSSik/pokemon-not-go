@@ -17,7 +17,12 @@ enum PokemonsViewModelEvents {
     case showPokemonInfo(pokemonData: PokemonData)
 }
 
-class PokemonsViewModel: BaseViewModel<PokemonsViewModelEvents> {
+enum PokemonsViewModelInputEvents {
+    
+    case updatePokemon(pokemonData: PokemonData)
+}
+
+class PokemonsViewModel: BaseViewModel<PokemonsViewModelEvents, PokemonsViewModelInputEvents> {
     
     // MARK: -
     // MARK: Variables
@@ -75,5 +80,20 @@ class PokemonsViewModel: BaseViewModel<PokemonsViewModelEvents> {
                 }
             )
             .disposed(by: self.disposeBag)
+    }
+    
+    override func handle(inputEvent: PokemonsViewModelInputEvents) {
+        switch inputEvent {
+        case .updatePokemon(let pokemonData):
+            self.pokemonsModel.do { pokemonsModel in
+                for pokemonId in 0..<pokemonsModel.results.count {
+                    if self.pokemonsModel?.results[pokemonId].name == pokemonData.name {
+                        self.pokemonsModel?.results[pokemonId] = pokemonData
+                        
+                        self.updateTable.onNext(())
+                    }
+                }
+            }
+        }
     }
 }

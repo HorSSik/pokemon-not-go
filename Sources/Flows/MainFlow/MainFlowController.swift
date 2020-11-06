@@ -15,6 +15,8 @@ class MainFlowController: BaseFlowNavigationContainer {
     
     private var networking: NetworkServiceType
     
+    private var pokemonsViewModel: PokemonsViewModel?
+    
     // MARK: -
     // MARK: Initialization
     
@@ -57,6 +59,8 @@ class MainFlowController: BaseFlowNavigationContainer {
         
         let pokemonsViewController = PokemonsViewController(viewModel: pokemonsViewModel)
         
+        self.pokemonsViewModel = pokemonsViewModel
+        
         self.contentController?.fadeTo(pokemonsViewController)
     }
     
@@ -85,8 +89,15 @@ class MainFlowController: BaseFlowNavigationContainer {
     
     private func handle(events: PokemonDetailInfoViewModelEvents) {
         switch events {
-        case .back:
-            dispatchOnMain { self.dismiss(animated: true, completion: nil) }
+        case let .back(pokemonData):
+            dispatchOnMain {
+                self.dismiss(
+                    animated: true,
+                    completion: { [weak self] in
+                        self?.pokemonsViewModel?.inputCallBackHandler?(.updatePokemon(pokemonData: pokemonData))
+                    }
+                )
+            }
         }
     }
 }

@@ -8,6 +8,8 @@
 
 import UIKit
 
+import Kingfisher
+
 enum PokemonTableViewCellEvents { }
 
 class PokemonTableViewCell: BaseCell<PokemonData, PokemonTableViewCellEvents> {
@@ -20,6 +22,8 @@ class PokemonTableViewCell: BaseCell<PokemonData, PokemonTableViewCellEvents> {
     @IBOutlet internal var titleLabel: UILabel?
     @IBOutlet internal var pokemonNameLabel: UILabel?
     
+    @IBOutlet internal var pokemonImage: UIImageView?
+    
     // MARK: -
     // MARK: Overrided
     
@@ -28,5 +32,13 @@ class PokemonTableViewCell: BaseCell<PokemonData, PokemonTableViewCellEvents> {
         
         self.titleLabel?.text = "Who's that pokemon?"
         self.pokemonNameLabel?.text = name.capitalizingFirstLetter()
+        
+        if let mainImage = model.image {
+            self.pokemonImage?.kf.setImage(with: mainImage)
+            self.titleLabel?.text = "It's - \(name.capitalizingFirstLetter())"
+            self.pokemonNameLabel?.isHidden = true
+        } else {
+            self.pokemonImage?.image = UIImage(named: "unknownPokemon")
+        }
     }
 }

@@ -13,7 +13,12 @@ enum MainViewModelEvents {
     case start
 }
 
-class MainViewModel: BaseViewModel<MainViewModelEvents> {
+enum MainViewModelInputEvents {
+    
+    
+}
+
+class MainViewModel: BaseViewModel<MainViewModelEvents, MainViewModelInputEvents> {
     
     // MARK: -
     // MARK: Variables
