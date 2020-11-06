@@ -31,7 +31,7 @@ public class PokemonDetailModel: NSObject, NetworkModel, Codable {
     }
     
     public static var empty: PokemonDetailModel {
-        return PokemonDetailModel(baseExperience: 0, name: "Test", order: 0, weight: 0, height: 0, sprites: .empty)
+        return PokemonDetailModel(baseExperience: 2, name: "Test", order: 3, weight: 150, height: 6, sprites: .empty)
     }
     
     // MARK: -

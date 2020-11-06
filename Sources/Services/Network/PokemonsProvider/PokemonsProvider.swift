@@ -47,10 +47,7 @@ where AllPokemonsProvider.ReturnedType == PokemonsModel,
     }
     
     public func getDetailInfo(name: String) -> Single<PokemonDetailModel> {
-        self.coreDataService.save(object: .empty)
         let params = DetailPokemonParams()
-        
-        let a = self.coreDataService.read(key: "Test")
         
         return get(with: multipleParamRequest(model: DetailPokemonModel.self, pathParam: name, queryParams: params))
     }
